@@ -63,12 +63,13 @@ class CreateCountController extends BaseController
         $type = $request->get('type');
 
         try {
+            $model_count = $this->createService->first($model, $type);
+            $model_count->increment('count');
             $count = $this->createService->count((int)$numeric, $model, $type);
-            $this->createService->model($model);
             $this->createService->userLog((int)$numeric, $model, $type, JwtService::jwt_account_uid());
         } catch (Throwable $e) {
 
-            return res(500, 'service error');
+            return res(422, 'param error');
         }
 
         return res(200, 'success', [$count]);

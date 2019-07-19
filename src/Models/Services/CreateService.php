@@ -83,15 +83,16 @@ class CreateService
     }
 
     /**
-     * model. 2019/6/14 9:40.
+     * first. 2019/7/19 21:40.
      *
-     * @param string $model
+     * @param $model
+     * @param $type
      *
      * @return mixed
      */
-    public function model(string $model)
+    public function first($model, $type)
     {
-        return $this->modelCountRepo->firstOrCreated($model);
+        return $this->modelCountRepo->first($model, $type);
     }
 
     /**

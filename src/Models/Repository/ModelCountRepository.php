@@ -45,12 +45,17 @@ class ModelCountRepository
         self::$model = $modelCount;
     }
 
-    public function firstOrCreated(string $model)
+    /**
+     * first. 2019/7/19 21:20.
+     *
+     * @param $model
+     * @param $type
+     *
+     * @return mixed
+     */
+    public function first($model, $type)
     {
-        $db = self::$model->firstOrCreate(['name' => $model], ['id' => create_numeric_id()]);
-        $db->increment('count', 1);
-
-        return $db;
+        return self::$model->where('model', $model)->where('type', $type)->first();
     }
 
 }

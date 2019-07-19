@@ -37,8 +37,9 @@ class ModelCountEntity extends Models
      */
     protected $fillable = [
         'id',
-        'name',
-        'status',
+        'model',
+        'type',
+        'readme',
         'count'
 
     ];
