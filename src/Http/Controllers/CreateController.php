@@ -15,19 +15,20 @@ declare(strict_types=1);
 namespace Woisks\Count\Http\Controllers;
 
 
+use DB;
 use Throwable;
 use Woisks\Count\Http\Requests\CreateRequest;
 use Woisks\Count\Models\Services\CreateService;
 use Woisks\Jwt\Services\JwtService;
 
 /**
- * Class CreateCountController.
+ * Class CreateController.
  *
  * @package Woisks\Count\Http\Controllers
  *
  * @Author  Maple Grove  <bolelin@126.com> 2019/6/14 9:51
  */
-class CreateCountController extends BaseController
+class CreateController extends BaseController
 {
     /**
      * createService.  2019/6/14 9:51.
@@ -37,7 +38,7 @@ class CreateCountController extends BaseController
     private $createService;
 
     /**
-     * CreateCountController constructor. 2019/6/14 9:51.
+     * CreateController constructor. 2019/6/14 9:51.
      *
      * @param \Woisks\Count\Models\Services\CreateService $createService
      *
@@ -50,11 +51,12 @@ class CreateCountController extends BaseController
 
 
     /**
-     * create. 2019/6/14 9:51.
+     * create. 2019/7/26 10:56.
      *
      * @param \Woisks\Count\Http\Requests\CreateRequest $request
      *
      * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
      */
     public function create(CreateRequest $request)
     {
@@ -62,15 +64,26 @@ class CreateCountController extends BaseController
         $model = $request->get('model');
         $type = $request->get('type');
 
+        $model_count = $this->createService->first($model, $type);
+
+        if (!$model_count) {
+            return res(422, 'param error');
+        }
+
         try {
-            $model_count = $this->createService->first($model, $type);
+            DB::beginTransaction();
+
             $model_count->increment('count');
+
             $count = $this->createService->count((int)$numeric, $model, $type);
             $this->createService->userLog((int)$numeric, $model, $type, JwtService::jwt_account_uid());
+
         } catch (Throwable $e) {
+            DB::rollBack();
 
             return res(422, 'param error');
         }
+        DB::commit();
 
         return res(200, 'success', [$count]);
     }

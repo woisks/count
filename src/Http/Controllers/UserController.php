@@ -19,13 +19,13 @@ use Woisks\Count\Http\Requests\GetUserRequest;
 use Woisks\Count\Models\Services\GetUserService;
 
 /**
- * Class UserCountController.
+ * Class UserController.
  *
  * @package Woisks\Count\Http\Controllers
  *
  * @Author  Maple Grove  <bolelin@126.com> 2019/6/14 10:52
  */
-class UserCountController extends BaseController
+class UserController extends BaseController
 {
     /**
      * getUserService.  2019/6/14 10:52.
@@ -35,7 +35,7 @@ class UserCountController extends BaseController
     private $getUserService;
 
     /**
-     * UserCountController constructor. 2019/6/14 10:52.
+     * UserController constructor. 2019/6/14 10:52.
      *
      * @param \Woisks\Count\Models\Services\GetUserService $getUserService
      *

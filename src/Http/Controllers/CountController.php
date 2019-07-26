@@ -59,6 +59,12 @@ class CountController extends BaseController
         $model = $request->get('model');
         $type = $request->get('type');
 
-        return $this->countService->whereGetd($numeric, $model, $type);
+        $db = $this->countService->whereGetd($numeric, $model, $type);
+
+        if ($db->isEmpty()) {
+            return res(404, 'param error ');
+        }
+
+        return res(200, 'success', $db);
     }
 }

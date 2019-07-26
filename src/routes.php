@@ -14,12 +14,15 @@ declare(strict_types=1);
 
 
 Route::prefix('count')
+     ->middleware('throttle:60,1')
      ->namespace('Woisks\Count\Http\Controllers')
      ->group(function () {
 
-         Route::post('/', 'CreateCountController@create');
-         Route::get('/user', 'UserCountController@get');
+
+         Route::get('/user', 'UserController@get');
          Route::get('/', 'CountController@get');
 
-
+         Route::middleware('token')->group(function () {
+             Route::post('/', 'CreateController@create');
+         });
      });
