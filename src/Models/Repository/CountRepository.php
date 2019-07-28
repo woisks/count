@@ -18,7 +18,7 @@ namespace Woisks\Count\Models\Repository;
 use Woisks\Count\Models\Entity\CountEntity;
 
 /**
- * Class CountRepository.
+ * Class TypeRepository.
  *
  * @package Woisks\Count\Models\Repository
  *
@@ -26,17 +26,18 @@ use Woisks\Count\Models\Entity\CountEntity;
  */
 class CountRepository
 {
+
     /**
-     * model.  2019/6/12 18:06.
+     * model.  2019/7/28 12:54.
      *
-     * @var static \Woisks\Count\Models\Entity\CountEntity
+     * @var static CountEntity
      */
     private static $model;
 
     /**
-     * CountRepository constructor. 2019/6/12 18:06.
+     * CountRepository constructor. 2019/7/28 12:54.
      *
-     * @param \Woisks\Count\Models\Entity\CountEntity $count
+     * @param CountEntity $count
      *
      * @return void
      */
@@ -46,40 +47,46 @@ class CountRepository
     }
 
     /**
-     * firstOrCreated. 2019/6/14 11:12.
+     * firstOrCreated. 2019/7/28 13:21.
      *
-     * @param int    $numeric
-     * @param string $model
-     * @param string $type
+     * @param $model
+     * @param $type
+     * @param $numeric
      *
      * @return mixed
      */
-    public function firstOrCreated(int $numeric, string $model, string $type)
+    public function firstOrCreated($model, $type, $numeric)
     {
-        $db = self::$model->firstOrCreate(['count_numeric' => $numeric, 'model_name' => $model, 'type' => $type], ['id' => create_numeric_id()]);
+        $db = self::$model->firstOrCreate(['numeric' => $numeric, 'model' => $model, 'type' => $type], ['id' => create_numeric_id()]);
         $db->increment('count', 1);
 
         return $db;
     }
 
     /**
-     * whereGet. 2019/6/14 11:15.
+     * decrement. 2019/7/28 13:33.
      *
-     * @param $numeric
      * @param $model
      * @param $type
+     * @param $numeric
      *
      * @return mixed
      */
-    public function whereGet($numeric, $model, $type)
+    public function decrement($model, $type, $numeric)
     {
-        return self::$model->where('count_numeric', $numeric)
-                           ->when($model, function ($q) use ($model) {
-                               return $q->where('model_name', $model);
-                           })
-                           ->when($type, function ($q) use ($type) {
-                               return $q->where('type', $type);
-                           })
-                           ->get();
+        return self::$model->where('numeric', $numeric)->where('model', $model)->where('type', $type)->decrement('count');
+    }
+
+    /**
+     * all. 2019/7/28 12:54.
+     *
+     * @param $model
+     * @param $numeric
+     *
+     * @return mixed
+     */
+    public function all($model, $numeric)
+    {
+        return self::$model->where('numeric', $numeric)->where('model', $model)->get();
     }
 }

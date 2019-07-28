@@ -14,15 +14,18 @@ declare(strict_types=1);
 
 
 Route::prefix('count')
-     ->middleware('throttle:60,1')
-     ->namespace('Woisks\Count\Http\Controllers')
-     ->group(function () {
+    ->middleware('throttle:60,1')
+    ->namespace('Woisks\Count\Http\Controllers')
+    ->group(function () {
 
 
-         Route::get('/user', 'UserController@get');
-         Route::get('/', 'CountController@get');
+        Route::get('/logs/{model}/{type}/{numeric}', 'GetController@logs')->where(['model' => '[a-z]+', 'type' => '[a-z]+', 'numeric' => '[0-9]+']);
+        Route::get('/{model}/{numeric}', 'GetController@count')->where(['type' => '[a-z]+', 'numeric' => '[0-9]+']);
+        Route::get('/{model}/{type}/{uid}', 'GetController@user')->where(['model' => '[a-z]+', 'type' => '[a-z]+', 'uid' => '[0-9]+',]);
 
-         Route::middleware('token')->group(function () {
-             Route::post('/', 'CreateController@create');
-         });
-     });
+        Route::middleware('token')->group(function () {
+            Route::post('/', 'CreateController@create');
+            Route::post('/del', 'DelController@del');
+
+        });
+    });

@@ -15,15 +15,28 @@ declare(strict_types=1);
 namespace Woisks\Count\Http\Requests;
 
 
-class GetUserRequest extends Requests
+/**
+ * Class DelRequest.
+ *
+ * @package Woisks\Count\Http\Requests
+ *
+ * @Author  Maple Grove  <bolelin@126.com> 2019/6/13 10:38
+ */
+class DelRequest extends Requests
 {
-
+    /**
+     * rules. 2019/6/13 10:38.
+     *
+     *
+     * @return array
+     */
     public function rules()
     {
         return [
-            'model' => 'sometimes|required|string|min:2|max:20',
-            'type'  => 'sometimes|required|string|min:2|max:20',
-            'desc'  => 'sometimes|required|boolean'
+            'numeric' => 'required|numeric',
+            'model'   => 'required|string|min:2|max:20',
+            'type'    => 'required|string|min:2|max:20'
         ];
     }
+
 }

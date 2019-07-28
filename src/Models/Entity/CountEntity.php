@@ -16,7 +16,7 @@ namespace Woisks\Count\Models\Entity;
 
 
 /**
- * Class CountEntity.
+ * Class TypeEntity.
  *
  * @package Woisks\Count\Models\Entity
  *
@@ -37,14 +37,12 @@ class CountEntity extends Models
      */
     protected $fillable = [
         'id',
-        'count_numeric',
-        'model_name',
+        'model',
         'type',
+        'numeric',
         'count'
     ];
-    protected $hidden   = [
-        'id'
-    ];
+
     /**
      * timestamps.  2019/6/12 17:47.
      *

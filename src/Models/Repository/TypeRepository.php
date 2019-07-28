@@ -15,32 +15,33 @@ declare(strict_types=1);
 namespace Woisks\Count\Models\Repository;
 
 
-use Woisks\Count\Models\Entity\ModelCountEntity;
+use Woisks\Count\Models\Entity\TypeEntity;
 
 /**
- * Class ModelCountRepository.
+ * Class TypeRepository.
  *
  * @package Woisks\Count\Models\Repository
  *
  * @Author  Maple Grove  <bolelin@126.com> 2019/6/13 10:34
  */
-class ModelCountRepository
+class TypeRepository
 {
+
     /**
-     * model.  2019/6/13 10:34.
+     * model.  2019/7/28 12:14.
      *
-     * @var static \Woisks\Count\Models\Entity\ModelCountEntity
+     * @var static TypeEntity
      */
     private static $model;
 
     /**
-     * ModelCountRepository constructor. 2019/6/13 10:34.
+     * TypeRepository constructor. 2019/7/28 12:14.
      *
-     * @param \Woisks\Count\Models\Entity\ModelCountEntity $modelCount
+     * @param TypeEntity $modelCount
      *
      * @return void
      */
-    public function __construct(ModelCountEntity $modelCount)
+    public function __construct(TypeEntity $modelCount)
     {
         self::$model = $modelCount;
     }
@@ -56,6 +57,19 @@ class ModelCountRepository
     public function first($model, $type)
     {
         return self::$model->where('model', $model)->where('type', $type)->first();
+    }
+
+    /**
+     * decrement. 2019/7/28 12:15.
+     *
+     * @param $model
+     * @param $type
+     *
+     * @return mixed
+     */
+    public function decrement($model, $type)
+    {
+        return self::$model->where('model', $model)->where('type', $type)->decrement('count');
     }
 
 }

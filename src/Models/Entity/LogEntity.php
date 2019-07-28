@@ -16,38 +16,37 @@ namespace Woisks\Count\Models\Entity;
 
 
 /**
- * Class ModelCountEntity.
+ * Class LogEntity.
  *
  * @package Woisks\Count\Models\Entity
  *
- * @Author  Maple Grove  <bolelin@126.com> 2019/6/12 17:45
+ * @Author  Maple Grove  <bolelin@126.com> 2019/6/13 10:32
  */
-class ModelCountEntity extends Models
+class LogEntity extends Models
 {
     /**
-     * table.  2019/6/12 17:45.
+     * table.  2019/6/13 10:32.
      *
      * @var  string
      */
-    protected $table = 'count_model_count';
+    protected $table = 'count_log';
     /**
-     * fillable.  2019/6/12 17:45.
+     * fillable.  2019/6/13 10:32.
      *
      * @var  array
      */
     protected $fillable = [
         'id',
+        'account_uid',
         'model',
         'type',
-        'readme',
-        'count'
-
+        'numeric',
+        'created_at',
+        'updated_at',
+        'status'
     ];
-
-    /**
-     * timestamps.  2019/6/14 9:46.
-     *
-     * @var  bool
-     */
-    public $timestamps = false;
+    protected $hidden   = [
+        'id',
+        'status'
+    ];
 }

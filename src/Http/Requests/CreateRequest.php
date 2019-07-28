@@ -33,7 +33,7 @@ class CreateRequest extends Requests
     public function rules()
     {
         return [
-            'numeric' => 'required|numeric|digits_between:1,19',
+            'numeric' => 'required|numeric',
             'model'   => 'required|string|min:2|max:20',
             'type'    => 'required|string|min:2|max:20'
         ];
