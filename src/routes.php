@@ -19,9 +19,9 @@ Route::prefix('count')
     ->group(function () {
 
 
-        Route::get('/logs/{model}/{type}/{numeric}', 'GetController@logs')->where(['model' => '[a-z]+', 'type' => '[a-z]+', 'numeric' => '[0-9]+']);
-        Route::get('/{model}/{numeric}', 'GetController@count')->where(['type' => '[a-z]+', 'numeric' => '[0-9]+']);
-        Route::get('/{model}/{type}/{uid}', 'GetController@user')->where(['model' => '[a-z]+', 'type' => '[a-z]+', 'uid' => '[0-9]+',]);
+        Route::get('/logs/{model}/{type}/{numeric}', 'GetController@logs')->where(['model' => '[a-z_a-z]+', 'type' => '[a-z_a-z]+', 'numeric' => '[0-9]+']);
+        Route::get('/{model}/{numeric}', 'GetController@count')->where(['type' => '[a-z_a-z]+', 'numeric' => '[0-9]+']);
+        Route::get('/{model}/{type}/{uid}', 'GetController@user')->where(['model' => '[a-z_a-z]+', 'type' => '[a-z_a-z]+', 'uid' => '[0-9]+',]);
 
         Route::middleware('token')->group(function () {
             Route::post('/', 'CreateController@create');
