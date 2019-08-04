@@ -41,12 +41,10 @@ class LogEntity extends Models
         'model',
         'type',
         'numeric',
-        'created_at',
-        'updated_at',
-        'status'
+        'created_at'
     ];
-    protected $hidden   = [
-        'id',
-        'status'
-    ];
+    /**
+     *
+     */
+    public const UPDATED_AT = null;
 }

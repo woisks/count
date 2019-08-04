@@ -84,6 +84,21 @@ class LogRepository
     }
 
     /**
+     * first. 2019/8/4 12:10.
+     *
+     * @param $model
+     * @param $type
+     * @param $numeric
+     * @param $account_uid
+     *
+     * @return mixed
+     */
+    public function first($model, $type, $numeric, $account_uid)
+    {
+        return self::$model->where('account_uid', $account_uid)->where('model', $model)->where('type', $type)->where('numeric', $numeric)->first();
+    }
+
+    /**
      * delete. 2019/7/28 13:36.
      *
      * @param $model

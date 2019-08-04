@@ -17,8 +17,6 @@ namespace Woisks\Count\Models\Services;
 
 use DB;
 use Throwable;
-use Woisks\Count\Models\Repository\CountRepository;
-use Woisks\Count\Models\Repository\TypeRepository;
 
 /**
  * Class CountServices.
@@ -29,37 +27,6 @@ use Woisks\Count\Models\Repository\TypeRepository;
  */
 class CountServices
 {
-
-    /**
-     * countRepo.  2019/8/1 17:37.
-     *
-     * @var static CountRepository
-     */
-    private static $countRepo;
-
-    /**
-     * typeRepo.  2019/8/1 17:37.
-     *
-     * @var static TypeRepository
-     */
-    private static $typeRepo;
-
-
-    /**
-     * CountServices constructor. 2019/8/1 18:09.
-     *
-     * @param CountRepository $countRepo
-     * @param TypeRepository $typeRepo
-     *
-     * @return void
-     */
-    public function __construct(CountRepository $countRepo, TypeRepository $typeRepo)
-    {
-        self::$countRepo = $countRepo;
-        self::$typeRepo  = $typeRepo;
-
-
-    }
 
 
     /**
@@ -72,7 +39,8 @@ class CountServices
      * @return bool
      * @throws \Exception
      */
-    public static function increment($model, $type, $numeric)
+    public
+    static function increment($model, $type, $numeric)
     {
         if (!$type_db = self::$typeRepo->first($model, $type)) {
             return false;
@@ -105,7 +73,8 @@ class CountServices
      * @return bool
      * @throws \Exception
      */
-    public static function decrement($model, $type, $numeric)
+    public
+    static function decrement($model, $type, $numeric)
     {
         if (!$type_db = self::$typeRepo->first($model, $type)) {
             return false;

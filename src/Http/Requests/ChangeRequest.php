@@ -16,13 +16,13 @@ namespace Woisks\Count\Http\Requests;
 
 
 /**
- * Class CreateRequest.
+ * Class ChangeRequest.
  *
  * @package Woisks\Count\Http\Requests
  *
  * @Author  Maple Grove  <bolelin@126.com> 2019/6/13 10:38
  */
-class CreateRequest extends Requests
+class ChangeRequest extends Requests
 {
     /**
      * rules. 2019/6/13 10:38.
@@ -33,7 +33,7 @@ class CreateRequest extends Requests
     public function rules()
     {
         return [
-            'numeric' => 'required|numeric',
+            'numeric' => 'required|numeric|digits_between:18,19',
             'model'   => 'required|string|min:2|max:20',
             'type'    => 'required|string|min:2|max:20'
         ];
